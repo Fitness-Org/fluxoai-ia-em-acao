@@ -59,8 +59,40 @@ const ContactForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-    toast.success("Obrigado! Nossa equipe entrará em contato em até 1 dia útil pelo WhatsApp.");
+    // Format deadline for display
+    const deadlineMap: Record<string, string> = {
+      "asap": "O mais rápido possível",
+      "30-60": "30-60 dias",
+      "60+": "Mais de 60 dias"
+    };
+
+    // Format the message for WhatsApp
+    const message = `🚀 *NOVO DIAGNÓSTICO GRATUITO*
+
+📋 *Dados do Contato:*
+• Nome: ${values.name}
+• Email: ${values.email}
+• Telefone: ${values.phone}
+
+🏢 *Dados da Empresa:*
+• Empresa: ${values.company}
+• Cargo: ${values.position}
+• Tamanho: ${values.companySize} funcionários
+• Setor: ${values.sector}
+
+🤖 *Informações de Automação:*
+• Processos: ${values.processes}
+• Volume Mensal: ${values.volume}
+• Prazo Desejado: ${deadlineMap[values.deadline] || values.deadline}`;
+
+    // Encode message for URL
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappLink = `https://wa.me/5547996856148?text=${encodedMessage}`;
+
+    // Open WhatsApp
+    window.open(whatsappLink, '_blank');
+
+    toast.success("Redirecionando para o WhatsApp...");
     form.reset();
   };
 

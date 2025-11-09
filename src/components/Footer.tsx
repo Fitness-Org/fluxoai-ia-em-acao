@@ -35,7 +35,7 @@ const Footer = () => {
             {/* Social links */}
             <div className="flex gap-4">
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/fluxoaidev"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-primary/10 hover:bg-primary/20 rounded-lg flex items-center justify-center text-primary transition-colors"
